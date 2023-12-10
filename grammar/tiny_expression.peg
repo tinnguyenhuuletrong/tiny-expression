@@ -1,0 +1,190 @@
+---
+import { Variable, Const, Operand, TargetValue, FunctionOperand, buildBinaryOperand, UnaryOperand, BinaryOperand, ArrayOperand, EInstructionType } from "./libs";
+---
+
+Root
+  := v=Expression $
+  .value= TargetValue {
+    return v.value
+  }
+
+Expression
+  := _ head=LogicOr tail={_ v1=OrSign _ v2=LogicOr}* _
+  .value= TargetValue {
+    return buildBinaryOperand(head, tail, true);
+  }
+
+
+LogicOr
+  := head=LogicAnd tail={_ v1=AndSign _ v2=LogicAnd}* 
+  .value= TargetValue {
+    return buildBinaryOperand(head, tail, true);
+  }
+
+
+LogicAnd
+  := head=CompOps tail={_ v1=ComparableOperators _ v2=CompOps}* 
+  .value= TargetValue {
+    return buildBinaryOperand(head, tail);
+  }
+
+
+CompOps
+  := head=PlusMinusOps tail={_ v1=PlusMinusSigns _ v2=PlusMinusOps}* 
+  .value= TargetValue {
+    return buildBinaryOperand(head, tail, true);
+  }
+
+
+PlusMinusOps
+  := head=MulDivOps tail={_ v1=MulDivSigns _ v2=MulDivOps}* 
+  .value= TargetValue {
+    return buildBinaryOperand(head, tail, true);
+  }
+
+
+MulDivOps
+  := head=BinaryFuncOp tail={_ v1=PowerSigns _ v2=BinaryFuncOp}* 
+  .value= TargetValue {
+    return buildBinaryOperand(head, tail, true);
+  }
+
+
+BinaryFuncOp
+  := head=Factor tail={_ v1=BinFunctions _ v2=Factor?}* 
+  .value = TargetValue {
+    return buildBinaryOperand(head, tail);
+  }
+
+
+BinFunctions
+  := v={'\*\=' | 'contains'i | 'contain'i} .value=EInstructionType { return EInstructionType.contains; }
+  |  v={'notcontains'i | 'notcontain'i}    .value=EInstructionType { return EInstructionType.notcontains; }
+  |  v={'anyof'i}                          .value=EInstructionType {return EInstructionType.anyof; }
+  |  v={'allof'i}                          .value=EInstructionType {return EInstructionType.allof; }
+
+Factor
+  := '\(' _ expr=Expression _ '\)' .value= any { return this.expr.value; }
+  | FunctionOp
+  | UnaryFunctionOp
+  | Atom
+  | ArrayOp
+
+FunctionOp
+  := name=LettersAndDigits '\(' params=Sequence '\)'
+  .value=FunctionOperand { 
+    const params = this.params.value
+    return new FunctionOperand(this.name.value, params); 
+  }
+
+UnaryFunctionOp
+  := {'\!' | 'negate'i} _ expr=Expression  .value=UnaryOperand { return new UnaryOperand(this.expr.value, EInstructionType.negate); }
+  | expr={Atom|ArrayOp} _ op=UnFunctions             .value=UnaryOperand { return new UnaryOperand(this.expr.value, this.op.value); }
+
+ArrayOp
+  := '\[' sequence=Sequence '\]'           .value= ArrayOperand { return sequence.value; }
+
+Sequence
+  := expr=Expression? tail={_ '\,' _ v=Expression}* 
+  .value= ArrayOperand {
+    if (expr == null)
+      return new ArrayOperand([]);
+
+    let array = [expr.value];
+    if (Array.isArray(tail)) {
+      array = array.concat(tail.map(itm => itm.v.value))
+    }
+
+    return new ArrayOperand(array);
+  }
+
+UnFunctions
+  := v='empty'i    .value=EInstructionType { return EInstructionType.empty; }
+  | v='notempty'i  .value=EInstructionType { return EInstructionType.notempty; }
+
+
+PowerSigns
+  := v={'\^' | 'power'} .value= EInstructionType { return EInstructionType.power; }
+
+MulDivSigns
+  := v='\*' .value= EInstructionType { return EInstructionType.mul; }
+  |  v='\/'  .value= EInstructionType { return EInstructionType.div; }
+  |  v='\%'  .value= EInstructionType { return EInstructionType.mod; }
+
+PlusMinusSigns
+  := v='\+' .value= EInstructionType { return EInstructionType.plus; }
+  |  v='\-' .value= EInstructionType { return EInstructionType.minus; }
+
+ComparableOperators
+  := v={'<=' | 'lessorequal'i}           .value= EInstructionType { return EInstructionType.lessorequal; }
+  |  v={'>=' | 'greaterorequal'i}        .value= EInstructionType { return EInstructionType.greaterorequal; }
+  |  v={'==' | 'equal'i}                 .value= EInstructionType { return EInstructionType.equal; }
+  |  v={'!=' | 'notequal'i}              .value= EInstructionType { return EInstructionType.notequal; }
+  |  v={'<' | 'less'i}                   .value= EInstructionType { return EInstructionType.less; }
+  |  v={'>' | 'greater'i}                .value= EInstructionType { return EInstructionType.greater; }
+
+
+AndSign
+  := v={'\&\&' | 'and'}    .value= EInstructionType { return EInstructionType.and; }
+
+OrSign
+  := v={'\|\|' | 'or'}     .value= EInstructionType { return EInstructionType.or; }
+
+Atom 
+  := _ v={'undefined' | 'null'} .value= null { return null; }
+  |  _ v=ConstValue             .value= Const { return new Const(v.value); }
+  |  _ '\{' v=ValueInput '\}'     .value= Variable { return new Variable(this.v.value); }
+
+ConstValue
+  := v=LogicValue           .value= boolean { return this.v.value; }
+  | v=ArithmeticValue       .value= number { return this.v.value; }
+  | v=LettersAndDigits      .value= string { return this.v.value; }
+  | v=StringValue           .value= string { return this.v.value; }
+  | v='\'\''                .value= string { return ''; }
+  | v='\"\"'                .value= string { return ''; }
+
+ArithmeticValue
+  := sign='[-]?' v=Number      .value= number { return this.sign === '-' ? -this.v.value : this.v.value; }
+
+LogicValue
+  := v='true'    .value= boolean { return true; }
+  |  v='false'   .value= boolean { return false; }
+
+
+ValueInput
+  := chars=ValueCharacters+ .value= string { return chars.map(itm=>itm.value).join(""); }
+
+ValueCharacters
+  := v='[^\{\}]' .value= string { return this.v; }
+
+Number
+  := v1=Digits '\.' v2=Digits     .value= number { return parseFloat(`${this.v1.value}.${this.v2.value}`); }
+  | v1=NonZeroDigits v2=Digits?   .value= number { return parseInt(this.v1.value.toString() + this.v2?.value?.toString() ?? ''); }
+  |'0x' v=HexDigits               .value= number { return parseInt(`0x${this.v.value}`, 16); } 
+  | v='0'                         .value= number { return 0; }
+
+StringValue
+  := StringQuoute v='[^\"\']+' StringQuoute         
+  .value= string {return this.v}
+
+LettersAndDigits
+  := v='[0-9a-zA-Z_]+'    .value= string {return this.v}
+
+HexDigits
+  := v='[0-9a-f]+'i       .value= string {return this.v}
+
+Digits
+  := v='[0-9]+'           .value= string {return this.v}
+
+NonZeroDigits
+  := v='[1-9]+'           .value= string {return this.v}
+
+StringQuoute
+  := v='[\"|\']'          .value= string {return '"'}
+
+// no use now
+// Letters
+//   := v='[a-zA-Z_]+'       .value= string {return this.v}
+
+_
+  := '[ \t\n\r]*'

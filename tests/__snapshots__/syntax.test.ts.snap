@@ -1,0 +1,930 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`atoms cases 1`] = `
+Const {
+  "type": 1,
+  "value": 12345,
+}
+`;
+
+exports[`atoms cases 2`] = `
+Const {
+  "type": 1,
+  "value": 1.32,
+}
+`;
+
+exports[`atoms cases 3`] = `
+Const {
+  "type": 1,
+  "value": -9.99,
+}
+`;
+
+exports[`atoms cases 4`] = `
+Const {
+  "type": 1,
+  "value": 0,
+}
+`;
+
+exports[`atoms cases 5`] = `
+Const {
+  "type": 1,
+  "value": 100,
+}
+`;
+
+exports[`atoms cases 6`] = `
+Const {
+  "type": 1,
+  "value": true,
+}
+`;
+
+exports[`atoms cases 7`] = `
+Const {
+  "type": 1,
+  "value": false,
+}
+`;
+
+exports[`atoms cases 8`] = `
+Const {
+  "type": 1,
+  "value": 4660,
+}
+`;
+
+exports[`atoms cases 9`] = `
+Const {
+  "type": 1,
+  "value": -255,
+}
+`;
+
+exports[`atoms cases 10`] = `
+Const {
+  "type": 1,
+  "value": -10,
+}
+`;
+
+exports[`atoms cases 11`] = `null`;
+
+exports[`atoms cases 12`] = `null`;
+
+exports[`atoms cases 13`] = `
+Variable {
+  "name": "variable_name",
+  "type": 0,
+}
+`;
+
+exports[`atoms cases 14`] = `
+Variable {
+  "name": "variable_array.a.b.c.d",
+  "type": 0,
+}
+`;
+
+exports[`atoms cases 15`] = `
+ArrayOperand {
+  "data": [
+    Const {
+      "type": 1,
+      "value": 1,
+    },
+    Const {
+      "type": 1,
+      "value": 2,
+    },
+    Const {
+      "type": 1,
+      "value": 3,
+    },
+  ],
+  "type": 5,
+}
+`;
+
+exports[`atoms cases 16`] = `
+ArrayOperand {
+  "data": [
+    Const {
+      "type": 1,
+      "value": 1.99,
+    },
+    Variable {
+      "name": "v_a",
+      "type": 0,
+    },
+  ],
+  "type": 5,
+}
+`;
+
+exports[`atoms cases 17`] = `
+ArrayOperand {
+  "data": [
+    Const {
+      "type": 1,
+      "value": 291,
+    },
+    FunctionOperand {
+      "name": "is_admin",
+      "params": ArrayOperand {
+        "data": [
+          Const {
+            "type": 1,
+            "value": 3,
+          },
+          Const {
+            "type": 1,
+            "value": 7,
+          },
+        ],
+        "type": 5,
+      },
+      "type": 3,
+    },
+  ],
+  "type": 5,
+}
+`;
+
+exports[`atoms cases 18`] = `
+Const {
+  "type": 1,
+  "value": "",
+}
+`;
+
+exports[`atoms cases 19`] = `
+Const {
+  "type": 1,
+  "value": "",
+}
+`;
+
+exports[`atoms cases 20`] = `
+Const {
+  "type": 1,
+  "value": "i am string",
+}
+`;
+
+exports[`atoms cases 21`] = `
+Const {
+  "type": 1,
+  "value": "i am also a string 12345",
+}
+`;
+
+exports[`expressions cases 1`] = `
+BinaryOperand {
+  "isArithmeticOp": true,
+  "left": Const {
+    "type": 1,
+    "value": 11,
+  },
+  "op": "plus",
+  "right": Const {
+    "type": 1,
+    "value": 22,
+  },
+  "type": 4,
+}
+`;
+
+exports[`expressions cases 2`] = `
+BinaryOperand {
+  "isArithmeticOp": true,
+  "left": Const {
+    "type": 1,
+    "value": 0,
+  },
+  "op": "minus",
+  "right": Const {
+    "type": 1,
+    "value": 31,
+  },
+  "type": 4,
+}
+`;
+
+exports[`expressions cases 3`] = `
+BinaryOperand {
+  "isArithmeticOp": true,
+  "left": Const {
+    "type": 1,
+    "value": -31,
+  },
+  "op": "plus",
+  "right": Const {
+    "type": 1,
+    "value": 31,
+  },
+  "type": 4,
+}
+`;
+
+exports[`expressions cases 4`] = `
+BinaryOperand {
+  "isArithmeticOp": true,
+  "left": Const {
+    "type": 1,
+    "value": 1,
+  },
+  "op": "plus",
+  "right": BinaryOperand {
+    "isArithmeticOp": true,
+    "left": Const {
+      "type": 1,
+      "value": 2,
+    },
+    "op": "mul",
+    "right": Const {
+      "type": 1,
+      "value": 3,
+    },
+    "type": 4,
+  },
+  "type": 4,
+}
+`;
+
+exports[`expressions cases 5`] = `
+BinaryOperand {
+  "isArithmeticOp": true,
+  "left": Const {
+    "type": 1,
+    "value": 12,
+  },
+  "op": "div",
+  "right": BinaryOperand {
+    "isArithmeticOp": true,
+    "left": Const {
+      "type": 1,
+      "value": 9,
+    },
+    "op": "div",
+    "right": Const {
+      "type": 1,
+      "value": 51,
+    },
+    "type": 4,
+  },
+  "type": 4,
+}
+`;
+
+exports[`expressions cases 6`] = `
+BinaryOperand {
+  "isArithmeticOp": true,
+  "left": Const {
+    "type": 1,
+    "value": 33,
+  },
+  "op": "power",
+  "right": Const {
+    "type": 1,
+    "value": 2,
+  },
+  "type": 4,
+}
+`;
+
+exports[`expressions cases 7`] = `
+BinaryOperand {
+  "isArithmeticOp": true,
+  "left": Const {
+    "type": 1,
+    "value": 33,
+  },
+  "op": "mod",
+  "right": Const {
+    "type": 1,
+    "value": 99,
+  },
+  "type": 4,
+}
+`;
+
+exports[`expressions cases 8`] = `
+BinaryOperand {
+  "isArithmeticOp": true,
+  "left": BinaryOperand {
+    "isArithmeticOp": true,
+    "left": BinaryOperand {
+      "isArithmeticOp": true,
+      "left": BinaryOperand {
+        "isArithmeticOp": true,
+        "left": Const {
+          "type": 1,
+          "value": 1,
+        },
+        "op": "plus",
+        "right": Const {
+          "type": 1,
+          "value": 3,
+        },
+        "type": 4,
+      },
+      "op": "power",
+      "right": BinaryOperand {
+        "isArithmeticOp": true,
+        "left": Const {
+          "type": 1,
+          "value": 5,
+        },
+        "op": "minus",
+        "right": Const {
+          "type": 1,
+          "value": 2,
+        },
+        "type": 4,
+      },
+      "type": 4,
+    },
+    "op": "power",
+    "right": BinaryOperand {
+      "isArithmeticOp": true,
+      "left": Const {
+        "type": 1,
+        "value": 9,
+      },
+      "op": "div",
+      "right": Const {
+        "type": 1,
+        "value": 7,
+      },
+      "type": 4,
+    },
+    "type": 4,
+  },
+  "op": "div",
+  "right": BinaryOperand {
+    "isArithmeticOp": true,
+    "left": Const {
+      "type": 1,
+      "value": 3,
+    },
+    "op": "mod",
+    "right": Const {
+      "type": 1,
+      "value": 2,
+    },
+    "type": 4,
+  },
+  "type": 4,
+}
+`;
+
+exports[`expressions cases 9`] = `
+BinaryOperand {
+  "isArithmeticOp": true,
+  "left": Variable {
+    "name": "variable_a",
+    "type": 0,
+  },
+  "op": "power",
+  "right": BinaryOperand {
+    "isArithmeticOp": true,
+    "left": Variable {
+      "name": "variable_b",
+      "type": 0,
+    },
+    "op": "plus",
+    "right": Const {
+      "type": 1,
+      "value": 1,
+    },
+    "type": 4,
+  },
+  "type": 4,
+}
+`;
+
+exports[`logical cases 1`] = `
+BinaryOperand {
+  "isArithmeticOp": false,
+  "left": Const {
+    "type": 1,
+    "value": 1,
+  },
+  "op": "greater",
+  "right": Const {
+    "type": 1,
+    "value": 2,
+  },
+  "type": 4,
+}
+`;
+
+exports[`logical cases 2`] = `
+BinaryOperand {
+  "isArithmeticOp": false,
+  "left": Variable {
+    "name": "variable_a",
+    "type": 0,
+  },
+  "op": "greaterorequal",
+  "right": Variable {
+    "name": "variable_b",
+    "type": 0,
+  },
+  "type": 4,
+}
+`;
+
+exports[`logical cases 3`] = `
+BinaryOperand {
+  "isArithmeticOp": false,
+  "left": BinaryOperand {
+    "isArithmeticOp": true,
+    "left": Const {
+      "type": 1,
+      "value": 10,
+    },
+    "op": "div",
+    "right": Const {
+      "type": 1,
+      "value": 2,
+    },
+    "type": 4,
+  },
+  "op": "less",
+  "right": BinaryOperand {
+    "isArithmeticOp": true,
+    "left": BinaryOperand {
+      "isArithmeticOp": true,
+      "left": Const {
+        "type": 1,
+        "value": 2,
+      },
+      "op": "mul",
+      "right": Const {
+        "type": 1,
+        "value": 3,
+      },
+      "type": 4,
+    },
+    "op": "plus",
+    "right": Const {
+      "type": 1,
+      "value": 1,
+    },
+    "type": 4,
+  },
+  "type": 4,
+}
+`;
+
+exports[`logical cases 4`] = `
+BinaryOperand {
+  "isArithmeticOp": false,
+  "left": BinaryOperand {
+    "isArithmeticOp": true,
+    "left": Variable {
+      "name": "age",
+      "type": 0,
+    },
+    "op": "minus",
+    "right": Const {
+      "type": 1,
+      "value": 18,
+    },
+    "type": 4,
+  },
+  "op": "less",
+  "right": Const {
+    "type": 1,
+    "value": 0,
+  },
+  "type": 4,
+}
+`;
+
+exports[`logical cases 5`] = `
+BinaryOperand {
+  "isArithmeticOp": false,
+  "left": Variable {
+    "name": "age",
+    "type": 0,
+  },
+  "op": "lessorequal",
+  "right": Const {
+    "type": 1,
+    "value": 255,
+  },
+  "type": 4,
+}
+`;
+
+exports[`logical cases 6`] = `
+BinaryOperand {
+  "isArithmeticOp": false,
+  "left": Variable {
+    "name": "variable_a",
+    "type": 0,
+  },
+  "op": "equal",
+  "right": Const {
+    "type": 1,
+    "value": 1,
+  },
+  "type": 4,
+}
+`;
+
+exports[`logical cases 7`] = `
+BinaryOperand {
+  "isArithmeticOp": false,
+  "left": Variable {
+    "name": "variable_b",
+    "type": 0,
+  },
+  "op": "notequal",
+  "right": Const {
+    "type": 1,
+    "value": true,
+  },
+  "type": 4,
+}
+`;
+
+exports[`logical cases 8`] = `
+UnaryOperand {
+  "op": "negate",
+  "target": Variable {
+    "name": "variable_c",
+    "type": 0,
+  },
+  "type": 2,
+}
+`;
+
+exports[`logical cases 9`] = `
+UnaryOperand {
+  "op": "empty",
+  "target": Variable {
+    "name": "array_a",
+    "type": 0,
+  },
+  "type": 2,
+}
+`;
+
+exports[`logical cases 10`] = `
+UnaryOperand {
+  "op": "notempty",
+  "target": Variable {
+    "name": "array_b",
+    "type": 0,
+  },
+  "type": 2,
+}
+`;
+
+exports[`logical cases 11`] = `
+BinaryOperand {
+  "isArithmeticOp": false,
+  "left": Variable {
+    "name": "array_a",
+    "type": 0,
+  },
+  "op": "contains",
+  "right": Const {
+    "type": 1,
+    "value": 5,
+  },
+  "type": 4,
+}
+`;
+
+exports[`logical cases 12`] = `
+BinaryOperand {
+  "isArithmeticOp": false,
+  "left": Variable {
+    "name": "array_a",
+    "type": 0,
+  },
+  "op": "contains",
+  "right": Const {
+    "type": 1,
+    "value": 5,
+  },
+  "type": 4,
+}
+`;
+
+exports[`logical cases 13`] = `
+BinaryOperand {
+  "isArithmeticOp": false,
+  "left": Variable {
+    "name": "array_a",
+    "type": 0,
+  },
+  "op": "notcontains",
+  "right": Const {
+    "type": 1,
+    "value": 5,
+  },
+  "type": 4,
+}
+`;
+
+exports[`logical cases 14`] = `
+BinaryOperand {
+  "isArithmeticOp": false,
+  "left": ArrayOperand {
+    "data": [
+      Const {
+        "type": 1,
+        "value": 3,
+      },
+      Const {
+        "type": 1,
+        "value": 5,
+      },
+      Const {
+        "type": 1,
+        "value": 7,
+      },
+    ],
+    "type": 5,
+  },
+  "op": "anyof",
+  "right": Const {
+    "type": 1,
+    "value": 3,
+  },
+  "type": 4,
+}
+`;
+
+exports[`logical cases 15`] = `
+BinaryOperand {
+  "isArithmeticOp": false,
+  "left": Variable {
+    "name": "array_a",
+    "type": 0,
+  },
+  "op": "allof",
+  "right": Const {
+    "type": 1,
+    "value": true,
+  },
+  "type": 4,
+}
+`;
+
+exports[`logical cases 2 1`] = `
+BinaryOperand {
+  "isArithmeticOp": true,
+  "left": BinaryOperand {
+    "isArithmeticOp": false,
+    "left": Variable {
+      "name": "variable_a",
+      "type": 0,
+    },
+    "op": "greater",
+    "right": Const {
+      "type": 1,
+      "value": 0,
+    },
+    "type": 4,
+  },
+  "op": "and",
+  "right": Variable {
+    "name": "variable_b",
+    "type": 0,
+  },
+  "type": 4,
+}
+`;
+
+exports[`logical cases 2 2`] = `
+BinaryOperand {
+  "isArithmeticOp": true,
+  "left": BinaryOperand {
+    "isArithmeticOp": false,
+    "left": BinaryOperand {
+      "isArithmeticOp": true,
+      "left": Const {
+        "type": 1,
+        "value": 3,
+      },
+      "op": "mul",
+      "right": Variable {
+        "name": "age",
+        "type": 0,
+      },
+      "type": 4,
+    },
+    "op": "less",
+    "right": Const {
+      "type": 1,
+      "value": 99,
+    },
+    "type": 4,
+  },
+  "op": "or",
+  "right": Variable {
+    "name": "variable_b",
+    "type": 0,
+  },
+  "type": 4,
+}
+`;
+
+exports[`logical cases 2 3`] = `
+BinaryOperand {
+  "isArithmeticOp": true,
+  "left": BinaryOperand {
+    "isArithmeticOp": true,
+    "left": BinaryOperand {
+      "isArithmeticOp": false,
+      "left": Variable {
+        "name": "scopes",
+        "type": 0,
+      },
+      "op": "contains",
+      "right": Const {
+        "type": 1,
+        "value": "allow_read",
+      },
+      "type": 4,
+    },
+    "op": "and",
+    "right": BinaryOperand {
+      "isArithmeticOp": false,
+      "left": Variable {
+        "name": "acc_type",
+        "type": 0,
+      },
+      "op": "equal",
+      "right": Const {
+        "type": 1,
+        "value": "normal",
+      },
+      "type": 4,
+    },
+    "type": 4,
+  },
+  "op": "or",
+  "right": FunctionOperand {
+    "name": "is_admin",
+    "params": ArrayOperand {
+      "data": [],
+      "type": 5,
+    },
+    "type": 3,
+  },
+  "type": 4,
+}
+`;
+
+exports[`function cases 1`] = `
+FunctionOperand {
+  "name": "this_function",
+  "params": ArrayOperand {
+    "data": [],
+    "type": 5,
+  },
+  "type": 3,
+}
+`;
+
+exports[`function cases 2`] = `
+FunctionOperand {
+  "name": "thatFunction",
+  "params": ArrayOperand {
+    "data": [
+      Variable {
+        "name": "variable_a",
+        "type": 0,
+      },
+    ],
+    "type": 5,
+  },
+  "type": 3,
+}
+`;
+
+exports[`function cases 3`] = `
+FunctionOperand {
+  "name": "parseInt",
+  "params": ArrayOperand {
+    "data": [
+      Variable {
+        "name": "variable_a",
+        "type": 0,
+      },
+      Const {
+        "type": 1,
+        "value": 10,
+      },
+    ],
+    "type": 5,
+  },
+  "type": 3,
+}
+`;
+
+exports[`function cases 4`] = `
+FunctionOperand {
+  "name": "addDate",
+  "params": ArrayOperand {
+    "data": [
+      FunctionOperand {
+        "name": "now",
+        "params": ArrayOperand {
+          "data": [],
+          "type": 5,
+        },
+        "type": 3,
+      },
+      Const {
+        "type": 1,
+        "value": 10,
+      },
+    ],
+    "type": 5,
+  },
+  "type": 3,
+}
+`;
+
+exports[`function cases 5`] = `
+FunctionOperand {
+  "name": "iif",
+  "params": ArrayOperand {
+    "data": [
+      BinaryOperand {
+        "isArithmeticOp": false,
+        "left": FunctionOperand {
+          "name": "age",
+          "params": ArrayOperand {
+            "data": [
+              Variable {
+                "name": "day_of_birth",
+                "type": 0,
+              },
+            ],
+            "type": 5,
+          },
+          "type": 3,
+        },
+        "op": "greater",
+        "right": Const {
+          "type": 1,
+          "value": 18,
+        },
+        "type": 4,
+      },
+      Const {
+        "type": 1,
+        "value": true,
+      },
+      Const {
+        "type": 1,
+        "value": false,
+      },
+    ],
+    "type": 5,
+  },
+  "type": 3,
+}
+`;
+
+exports[`syntax error cases 1`] = `
+[
+  {
+    "line": 1,
+    "offset": 5,
+    "overallPos": 5,
+  },
+]
+`;
+
+exports[`syntax error cases 2`] = `
+[
+  {
+    "line": 1,
+    "offset": 4,
+    "overallPos": 4,
+  },
+]
+`;
+
+exports[`syntax error cases 3`] = `
+[
+  {
+    "line": 1,
+    "offset": 3,
+    "overallPos": 3,
+  },
+]
+`;

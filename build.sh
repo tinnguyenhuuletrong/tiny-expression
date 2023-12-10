@@ -1,0 +1,1 @@
+npx tspeg --enable-memo --include-grammar-comment ./grammar/tiny_expression.peg ./src/_tinyExpressionGrammar.ts 

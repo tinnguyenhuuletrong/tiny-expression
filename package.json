@@ -1,0 +1,13 @@
+{
+  "version": "0.0.1",
+  "name": "peg-ts-play",
+  "module": "src/index.ts",
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "latest",
+    "tspeg": "^3.3.1"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
