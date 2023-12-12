@@ -1,5 +1,10 @@
 import { test, expect } from "bun:test";
-import { parse, deserializeFromJson, serializeToJson } from "../src";
+import {
+  parse,
+  deserializeFromJson,
+  serializeToJson,
+  compileAndOptimize,
+} from "../src";
 import { fail } from "assert";
 
 const ALL_CASES = [
@@ -77,10 +82,7 @@ test("save load debug", async () => {
 });
 
 function doTest(inp: string) {
-  const res = parse(inp).ast?.value;
-  if (!res) {
-    fail(`failed to parse ${inp}`);
-  }
+  const res = compileAndOptimize(inp);
   const jsonStr = serializeToJson(res);
   const newObj = deserializeFromJson(jsonStr);
   expect(newObj).toEqual(res);

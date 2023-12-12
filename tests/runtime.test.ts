@@ -1,5 +1,12 @@
 import { test, expect } from "bun:test";
-import { parse, Runtime, IRuntimeContext, RuntimeValue } from "../src";
+import {
+  parse,
+  Runtime,
+  IRuntimeContext,
+  RuntimeValue,
+  compile,
+  compileAndOptimize,
+} from "../src";
 import { fail } from "assert";
 import {
   StandardRuntimeContext,
@@ -49,7 +56,16 @@ const ALL_CASES_SIMPLE: Array<[string, any]> = [
 test("eval simple", async () => {
   const ctx = createRuntime();
   for (const [inp, answer] of ALL_CASES_SIMPLE) {
-    const res = doTest(inp, ctx);
+    const res = doCompileAndRun(inp, ctx);
+    console.log("\t", inp, "->", res);
+    expect(res).toEqual(answer);
+  }
+});
+
+test("eval with optimize", async () => {
+  const ctx = createRuntime();
+  for (const [inp, answer] of ALL_CASES_SIMPLE) {
+    const res = doCompileOptimizeAndRun(inp, ctx);
     console.log("\t", inp, "->", res);
     expect(res).toEqual(answer);
   }
@@ -156,7 +172,7 @@ test("eval runtime", async () => {
 
   for (const [inp, answer, variableMap] of ALL_CASES_WITH_CONTEXT) {
     ctx.setVariableMaps(variableMap);
-    const res = doTest(inp, ctx);
+    const res = doCompileAndRun(inp, ctx);
     console.log("\t", inp, "->", res);
     expect(res).toEqual(answer);
   }
@@ -169,7 +185,7 @@ test("eval extends new function", async () => {
     }
   );
   let inp = `say()`;
-  let res = doTest(inp, ctx);
+  let res = doCompileAndRun(inp, ctx);
   console.log(inp, "->", res);
 
   ctx.registerFunction(
@@ -177,8 +193,26 @@ test("eval extends new function", async () => {
     ([name]) => `hi ${String(name).toLocaleUpperCase()}!`
   );
   inp = `say_hi('ttin')`;
-  res = doTest(inp, ctx);
+  res = doCompileAndRun(inp, ctx);
   console.log(inp, "->", res);
+});
+
+test("eval compile error", async () => {
+  try {
+    const res = doCompileAndRun(`age("a")`, new StandardRuntimeContext({}));
+  } catch (error) {
+    return;
+  }
+  fail("OoO");
+});
+
+test("eval compile error 2", async () => {
+  try {
+    const res = doCompileAndRun(`(!)`, new StandardRuntimeContext({}));
+  } catch (error) {
+    return;
+  }
+  fail("OoO");
 });
 
 test("eval debug", async () => {
@@ -197,15 +231,16 @@ test("eval debug", async () => {
   console.log(inp, "->", res.ast.value, "->", result);
 });
 
-function doTest(inp: string, ctx: IRuntimeContext) {
-  const res = parse(inp);
-  if (!res.ast?.value) {
-    console.log(res.errs.map((itm) => itm.toString()));
-    fail(`failed to parse ${inp}`);
-  }
-
+function doCompileAndRun(inp: string, ctx: IRuntimeContext) {
+  const res = compile(inp);
   const rt = new Runtime(ctx);
-  return rt.eval(res.ast.value);
+  return rt.eval(res);
+}
+
+function doCompileOptimizeAndRun(inp: string, ctx: IRuntimeContext) {
+  const res = compileAndOptimize(inp);
+  const rt = new Runtime(ctx);
+  return rt.eval(res);
 }
 
 function createRuntime(): IRuntimeContext {

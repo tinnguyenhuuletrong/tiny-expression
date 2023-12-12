@@ -1,0 +1,97 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`do optimize 1`] = `
+BinaryOperand {
+  "isArithmeticOp": true,
+  "left": Const {
+    "type": 1,
+    "value": 17.0859375,
+  },
+  "op": "mod",
+  "right": BinaryOperand {
+    "isArithmeticOp": true,
+    "left": Variable {
+      "name": "val",
+      "type": 0,
+    },
+    "op": "minus",
+    "right": Const {
+      "type": 1,
+      "value": 3,
+    },
+    "type": 4,
+  },
+  "type": 4,
+}
+`;
+
+exports[`do optimize 2`] = `
+FunctionOperand {
+  "name": "iff",
+  "params": ArrayOperand {
+    "data": [
+      Const {
+        "type": 1,
+        "value": false,
+      },
+      Const {
+        "type": 1,
+        "value": 30,
+      },
+      Const {
+        "type": 1,
+        "value": 20,
+      },
+    ],
+    "type": 5,
+  },
+  "type": 3,
+}
+`;
+
+exports[`do optimize 3`] = `
+ArrayOperand {
+  "data": [
+    Const {
+      "type": 1,
+      "value": false,
+    },
+    Const {
+      "type": 1,
+      "value": false,
+    },
+    ArrayOperand {
+      "data": [
+        Const {
+          "type": 1,
+          "value": 34,
+        },
+      ],
+      "type": 5,
+    },
+    FunctionOperand {
+      "name": "log",
+      "params": ArrayOperand {
+        "data": [
+          BinaryOperand {
+            "isArithmeticOp": true,
+            "left": Const {
+              "type": 1,
+              "value": 0,
+            },
+            "op": "mul",
+            "right": Variable {
+              "name": "age",
+              "type": 0,
+            },
+            "type": 4,
+          },
+        ],
+        "type": 5,
+      },
+      "type": 3,
+    },
+  ],
+  "type": 5,
+}
+`;
