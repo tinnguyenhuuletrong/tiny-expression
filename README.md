@@ -155,6 +155,25 @@ bun install
 
 ```bash
 bun test --coverage
+
+....
+--------------------------------------|---------|---------|-------------------
+File                                  | % Funcs | % Lines | Uncovered Line #s
+--------------------------------------|---------|---------|-------------------
+All files                             |   95.82 |   98.14 |
+ src/_tinyExpressionGrammar.ts        |   99.37 |   99.53 | 2777-2780,2784-2790
+ src/addons/StandardRuntimeContext.ts |   92.31 |   97.78 |
+ src/index.ts                         |  100.00 |   94.74 |
+ src/libs.ts                          |   93.33 |   99.42 |
+ src/optimize.ts                      |  100.00 |   98.61 |
+ src/runtime.ts                       |   85.71 |  100.00 |
+ src/utils.ts                         |  100.00 |   96.88 |
+--------------------------------------|---------|---------|-------------------
+
+ 18 pass
+ 0 fail
+ 59 snapshots, 241 expect() calls
+Ran 18 tests across 4 files. [528.00ms]
 ```
 
 - Folder structure
