@@ -1,3 +1,2 @@
-bun x pbjs -t static-module -w commonjs -o compiled.js data.proto
-bun x pbts -o compiled.d.ts compiled.js
-
+bun x pbjs -t static-module -w commonjs -o ./src/addons/protobuf/packer.js ./src/addons/protobuf/packer.proto
+bun x pbts -o ./src/addons/protobuf/packer.d.ts ./src/addons/protobuf/packer.js

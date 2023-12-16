@@ -5,18 +5,19 @@
   "type": "module",
   "devDependencies": {
     "bun-types": "latest",
-    "tspeg": "^3.3.1"
+    "tspeg": "^3.3.1",
+    "protobufjs-cli": "^1.1.2"
   },
   "peerDependencies": {
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "protobufjs": "^7.2.5"
   },
   "peerDependenciesMeta": {
     "protobufjs": {
       "optional": true
+    },
+    "protobufjs-cli": {
+      "optional": true
     }
-  },
-  "dependencies": {
-    "protobufjs": "^7.2.5",
-    "protobufjs-cli": "^1.1.2"
   }
 }
