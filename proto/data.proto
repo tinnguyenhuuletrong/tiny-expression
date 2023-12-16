@@ -1,0 +1,95 @@
+package tiny_expression;
+
+enum ENodeType {
+  Evariable = 0;
+  EConst = 1;
+  EUnaryOp = 2;
+  EUFuncOp = 3;
+  EBinaryOp = 4;
+  EArrayOp = 5;
+}
+
+enum EInstructionType {
+  plus = 1;
+  minus = 2;
+  mul = 3;
+  div = 4;
+  mod = 5;
+  power = 6;
+
+  and = 7;
+  or = 8;
+
+  lessorequal = 9;
+  greaterorequal = 10;
+  equal = 11;
+  notequal = 12;
+  less = 13;
+  greater = 14;
+  negate = 15;
+
+  contains = 16;
+  notcontains = 17;
+  anyof = 18;
+  allof = 19;
+  empty = 20;
+  notempty = 21;
+}
+
+message Const {
+  required ENodeType type = 1;
+  oneof value {
+    float number_value = 2;
+    string string_value = 3;
+    bool bool_value = 4;
+  }
+}
+
+
+message Variable {
+  required ENodeType type = 1;
+  required string name = 2;
+}
+
+message Operand {
+  required ENodeType type = 1;
+  oneof value {
+    UnaryOperand unary_operad = 2;
+  };
+}
+
+message TargetValue {
+  required ENodeType type = 1;
+  oneof value {
+    Const const_val = 2;
+    Variable variable_val = 3;
+    UnaryOperand unary_operand = 4;
+    BinaryOperand binary_operand = 5;
+  };
+}
+
+
+message UnaryOperand {
+  required ENodeType type = 1;
+  required TargetValue target = 2;
+}
+
+
+message BinaryOperand {
+  required ENodeType type = 1;
+  required EInstructionType op = 2;
+  required TargetValue left = 3;
+  required TargetValue right = 4;
+  required bool isArithmeticOp = 5;
+}
+
+
+message ArrayOperand {
+  required ENodeType type = 1;
+  repeated TargetValue data = 2;
+}
+
+message FunctionOperand {
+  required ENodeType type = 1;
+  required ArrayOperand params = 2;
+}
