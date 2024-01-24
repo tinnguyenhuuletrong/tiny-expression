@@ -2,7 +2,8 @@ import { IRuntimeContext, RuntimeValue } from "..";
 import { _castToBoolean, _castToDate, _castToNumber } from "../utils";
 
 export type RuntimeFuncType = (params: RuntimeValue[]) => RuntimeValue;
-export type VariableMapType = Record<string, RuntimeValue>;
+type VariableMapDic = Record<string, RuntimeValue>;
+export type VariableMapType = Record<string, RuntimeValue | VariableMapDic>;
 const StdFuncMap: Record<string, RuntimeFuncType> = {
   iif: iif,
   diffDays: diffDays,
@@ -13,13 +14,16 @@ const StdFuncMap: Record<string, RuntimeFuncType> = {
 
 export class StandardRuntimeContext implements IRuntimeContext {
   constructor(
-    private variableMap: Record<string, RuntimeValue>,
+    private variableMap: VariableMapType,
     private funcMap: Record<string, RuntimeFuncType> = { ...StdFuncMap }
   ) {}
   resolveVariable(name: string): RuntimeValue {
-    if (!(name in this.variableMap))
+    const variablePaths = name.split(".");
+    const val = this._resolveVariableWithPaths(variablePaths);
+    if (val === undefined)
       throw new Error(`failed to resolve variable with name='${name}'`);
-    return this.variableMap[name];
+
+    return val as RuntimeValue;
   }
   functionCall(name: string, params: RuntimeValue[]): RuntimeValue {
     const f = this.funcMap[name];
@@ -27,7 +31,7 @@ export class StandardRuntimeContext implements IRuntimeContext {
     return f(params);
   }
 
-  setVariableMaps(map: Record<string, RuntimeValue>) {
+  setVariableMaps(map: VariableMapType) {
     this.variableMap = map;
   }
   registerFunction(name: string, func: RuntimeFuncType) {
@@ -35,6 +39,16 @@ export class StandardRuntimeContext implements IRuntimeContext {
   }
   unregisterFunction(name: string) {
     delete this.funcMap[name];
+  }
+
+  private _resolveVariableWithPaths(paths: string[]) {
+    let tmp: any = this.variableMap[paths[0]];
+    for (let i = 1; i < paths.length; i++) {
+      if (tmp === undefined) return undefined;
+      const element = paths[i];
+      tmp = tmp[element];
+    }
+    return tmp;
   }
 }
 

@@ -168,6 +168,16 @@ test("eval runtime", async () => {
         is_admin: true,
       },
     ],
+    [
+      `"name: " + {profile.name} + ", email: " + {profile.email}`,
+      "name: ttin, email: abcdef@abc.com",
+      {
+        profile: {
+          name: "ttin",
+          email: "abcdef@abc.com",
+        },
+      },
+    ],
   ];
 
   for (const [inp, answer, variableMap] of ALL_CASES_WITH_CONTEXT) {
@@ -217,9 +227,11 @@ test("eval compile error 2", async () => {
 
 test("eval debug", async () => {
   const ctx = new StandardRuntimeContext({
-    dob: 1694251178215,
+    profile: {
+      name: "aaa",
+    },
   });
-  const inp = `diffDays({dob}, '2023-12-09T09:19:38.215Z') > 100`;
+  const inp = `"hello " + {profile.name}`;
   const res = parse(inp);
   if (!res.ast?.value) {
     console.log(res.errs.map((itm) => itm.toString()));

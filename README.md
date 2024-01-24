@@ -62,6 +62,7 @@ console.log(result); // -> true
 
 // Variables reference
 {is_admin}
+{profile.name}
 
 // Boolean values
 true, false
