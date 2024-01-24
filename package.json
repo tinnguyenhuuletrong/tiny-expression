@@ -1,13 +1,18 @@
 {
   "version": "0.0.1",
-  "name": "peg-ts-play",
-  "module": "src/index.ts",
-  "type": "module",
-  "devDependencies": {
-    "bun-types": "latest",
-    "tspeg": "^3.3.1"
+  "name": "tiny-expression",
+  "module": "dist/index.js",
+  "main": "dist/index.cjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build:grammar": "sh ./build.sh",
+    "build:npm": "bun run ./tools/buildNPMPackage.ts",
+    "prepack": "bun run build:npm"
   },
-  "peerDependencies": {
+  "devDependencies": {
+    "bun-plugin-dts": "^0.2.1",
+    "bun-types": "latest",
+    "tspeg": "^3.3.1",
     "typescript": "^5.0.0"
   }
 }

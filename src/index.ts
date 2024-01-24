@@ -2,7 +2,7 @@ import { parse, Parser } from "./_tinyExpressionGrammar";
 import { doOptimize } from "./optimize";
 export { Runtime, type RuntimeValue, type IRuntimeContext } from "./runtime";
 export { deserializeFromJson, serializeToJson } from "./utils";
-
+export * from "./addons/StandardRuntimeContext";
 export { parse, Parser, doOptimize };
 
 export function compileAndOptimize(inp: string) {
